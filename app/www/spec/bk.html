@@ -1,0 +1,140 @@
+<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/1.0.0-beta.6/css/ionic.css" rel="stylesheet">
+ <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+ $(document).ready(function()
+ {
+ $("#insert").click(function(){
+ var BuildingID=$("#BuildingID").val();
+ var RoomID=$("#RoomID").val();
+ var Temp=$("#Temp").val();
+ var dataString="BuildingID="+BuildingID+"&RoomID="+RoomID+"&Temp="+Temp+"&insert=";
+ if($.trim(BuildingID).length>0 & $.trim(RoomID).length>0 & $.trim(Temp).length>0)
+ {
+ $.ajax({
+ type: "POST",
+ url:"insert_ac.php",
+ data: dataString,
+ crossDomain: true,
+ cache: false,
+ beforeSend: function(){ $("#insert").val('Connecting...');},
+ success: function(data){
+ if(data=="ok")
+ {
+ alert("inserted");
+ $("#insert").val('submit');
+ }
+ else if(data=="error")
+ {
+ alert("error");
+ }
+ }
+ });
+ }return false;
+ });
+ });
+ </script>
+
+
+
+
+
+
+
+
+
+
+ </head>
+<body>
+  <div class="card">
+  <div class="item item-divider">
+    CHANGING THE TEMPERATURE
+  </div>
+
+<label class="item item-input item-select">
+    <div class="input-label">
+     You are in the building:
+    </div>
+    <select id="BuildingID2">
+      <option selected> COLLEGE OF TECHNOLOGY</option>
+      <option> COLLEGE OF BUSINESS ADMINISTRATION</option>
+
+    </select>
+  </label>
+<div class="list">
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Room number:
+    </div>
+    <select id="RoomID2">
+      <option selected>201</option>
+      <option>202</option>
+      <option>204</option>
+      <option>205</option>
+    </select>
+  </label>
+</div>
+
+
+
+
+
+
+  <div class="list">
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Value in Fahrenheit
+    </div>
+    <select id="Temp2">
+      <option>60</option>
+      <option selected>65</option>
+      <option>70</option>
+      <option>75</option>
+      <option>80</option>
+    </select>
+  </label>
+
+
+
+
+<div class="item">
+ <label>BuildingID</label>
+ <input type="text" id="BuildingID" value=""/>
+ </div>
+ <div class="item">
+ <label>RoomID</label>
+ <input type="text" id="RoomID" value=""/>
+ </div>
+ <div class="item">
+ <label>Temp</label>
+ <input type="text" id="Temp" value=""/>
+ </div>
+
+
+
+<button class="button button-full button-balanced" id="insert2">
+      Submit
+    </button>
+<input type="button" id="insert" class="button button-block" value="Insert"/>
+</div>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" href="index.html">
+    <i class="icon ion-home"></i>
+    Home
+  </a>
+</div>
+
+</body>
+</html>

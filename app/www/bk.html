@@ -1,0 +1,48 @@
+<?php
+ $host        = "host=localhost";
+ $port        = "port=5432";
+ $dbname      = "dbname=postgres";
+ $credentials = "user=postgres password=postgres";
+
+$db_handle = pg_connect("$host $port $dbname $credentials" );        
+//Nombro variables con metodo POST
+$Type_VGI_id= $_POST['Type_VGI_id'];
+$Descripcion = $_POST['Descripcion'];
+$Date = $_POST['Date'];
+$LatY = $_POST['LatY'];
+$LongX = $_POST['LongX'];
+
+
+$query = "INSERT INTO campusuhapp_vgi (Type_VGI_id, Descripcion,Date, LatY, LongX) VALUES ('$Type_VGI_id','$Descripcion','$Date','$LatY','$LongX')";        
+
+$result = pg_exec($db_handle, $query);        
+
+if ($result) {        
+
+    echo "The query executed successfully.<br>n";        
+
+    for ($row = 0; $row < pg_numrows($result); $row++) {        
+
+        $fullname = "";        
+
+        for ($col = 0; $col < pg_numfields($result); $col++) {        
+
+            $fullname .= pg_result($result, $row, $col) . " ";        
+
+        }        
+
+        echo "Customer: $fullname<br>n";        
+
+    }        
+
+} else {        
+
+    echo "The query failed with the following error:<br>n";        
+
+    echo pg_errormessage($db_handle);        
+
+}        
+
+pg_close($db_handle);        
+
+?>
